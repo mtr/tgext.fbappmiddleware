@@ -9,8 +9,8 @@ The planned usage is for TurboGears 2, where it can detect whether the
 browser request is made to a Facebook application version of the site.
 How detection is performed can be customized.  
 
-The middleware provides an @expose_fb that can be used to
-conditionally render a special Facebook application version of
+The middleware provides an *@expose_fb_app* decorator that can be used
+to conditionally render a special Facebook application version of
 decorated controller methods.  In addition, it is possible to observe
 the detector's descision by inspecting the *request.is_fb_app*
 attribute::
