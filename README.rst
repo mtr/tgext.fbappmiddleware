@@ -1,7 +1,9 @@
-About Facebook Application Middleware
--------------------------------------
+About TurboGears 2 Facebook Application Middleware
+--------------------------------------------------
 
-Facebook App Middleware is a middleware for WSGI applications.
+TurboGears 2 Facebook Application Middleware is a piece of WSGI
+middleware to conditionally render FB application versions of a Web
+application's pages.
 
 The planned usage is for TurboGears 2, where it can detect whether the
 browser request is made to a Facebook application version of the site.
@@ -24,7 +26,7 @@ tgext.fbappmiddleware can be installed both from pypi or from bitbucket::
 
     easy_install tgext.fbappmiddleware
 
-or 
+or::
 
     pip install tgext.fbappmiddleware
 
@@ -84,3 +86,14 @@ Disclaimer
 Neither the authour nor this WSGI middleware extension is in any way
 sponsored, endorsed or administered by, or associated with, `Facebook
 <http://facebook.com/>`_.
+
+License
+-------
+
+This software is free software: you can redistribute it and/or modify
+it under the terms of the Lesser GNU General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+Please see the files COPYING and COPYING.LESSER for more information
+about licensing.
