@@ -26,11 +26,13 @@ tgext.fbappmiddleware can be installed both from pypi or from bitbucket::
 
     easy_install tgext.fbappmiddleware
 
-or::
+or with pip (http://www.pip-installer.org/)::
 
     pip install tgext.fbappmiddleware
 
-should work for most users.
+should work for most users.  To install from Github::
+
+    pip install -e git://github.com/mtr/tgext.fbappmiddleware.git#egg=tgext.fbappmiddleware
 
 Enabling Mobile Agents Detection
 ----------------------------------
