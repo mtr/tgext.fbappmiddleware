@@ -24,6 +24,9 @@ __author__ = "Martin Thorsen Ranang"
 from webob import Request
 import re
 
+FACEBOOK_USER_AGENT = 'facebookexternalhit/1.1 ' \
+                      '(+http://www.facebook.com/externalhit_uatext.php)'
+
 class DetectFBAppRequest(object):
     """Detect Facebook application request
     """
@@ -43,21 +46,49 @@ class DetectFBAppRequest(object):
     
     def __call__(self, request):
         return self.perform_detection(request)
+
+class DetectFBClientRequest(object):
+    """Detect whether Facebook is the request's client.
+    
+    For example, Facebook needs to scrape your page to know how to
+    display it in the Open Graph
+    (http://developers.facebook.com/docs/reference/plugins/like/).
+    """
+    
+    def __init__(self, application, config):
+        super(DetectFBClientRequest, self).__init__()
+        
+        self.fb_user_agent = FACEBOOK_USER_AGENT
+        
+    def perform_detection(self, request):
+        return (request.user_agent == self.fb_user_agent)
+    
+    def __call__(self, request):
+        return self.perform_detection(request)
     
 class FBAppMiddleware(object):
     def __init__(self, application, config,
-                 fb_app_request_detector=DetectFBAppRequest):
+                 fb_app_request_detector=DetectFBAppRequest,
+                 fb_client_request_detector=DetectFBClientRequest):
         self.application = application
         
         if isinstance(fb_app_request_detector, type):
             self.detect_fb_app = fb_app_request_detector(application, config)
         else:
             self.detect_fb_app = fb_app_request_detector
+
+        if isinstance(fb_client_request_detector, type):
+            self.detect_fb_client = fb_client_request_detector(application,
+                                                               config)
+        else:
+            self.detect_fb_client = fb_client_request_detector
             
     def __call__(self, environ, start_response):
         request = Request(environ)
         
         request.is_fb_app = bool(self.detect_fb_app(request))
+        
+        request.fb_is_client = bool(self.detect_fb_client(request))
         
         response = request.get_response(self.application)
         
