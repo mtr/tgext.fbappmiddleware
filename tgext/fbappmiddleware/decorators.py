@@ -47,7 +47,7 @@ class expose_fb_app(object):
                 override_mapping = request._override_mapping = {}
                 
             override_mapping[self.func] = {self.content_type:
-                                           (self.engine, self.template, [])}
+                                           (self.engine, self.template, [], {})}
             
     def __call__(self, func):
         self.func = func
